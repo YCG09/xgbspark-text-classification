@@ -3,7 +3,7 @@ XGBoost on Spark for Chinese Text Classification
 ## Features
 
 * Data Source: `Hive`
-* Word Segmentation: `ANSJ`
+* Word Segmentation: `Ansj`
 * Feature Engineering: `NGram` + `TF-IDF` or `Word2Vec`
 * Classification Algorithm: `XGBoost`
 * Model Training: `Spark Pipeline`
