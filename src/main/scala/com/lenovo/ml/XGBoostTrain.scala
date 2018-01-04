@@ -110,11 +110,11 @@ object XGBoostTrain {
     val paramMap = new mutable.HashMap[String, Any]()
     paramMap += "nworkers" -> 18
     paramMap += "use_external_memory" -> false
-    paramMap += "num_round" -> 50
-    paramMap += "max_depth" -> 300
+    // paramMap += "eta" -> 0.1f
+    // paramMap += "num_round" -> 50
+    // paramMap += "max_depth" -> 300
     paramMap += "min_child_weight" -> 3
     paramMap += "alpha" -> 0.01
-    paramMap += "eta" -> 0.1f
     paramMap += "gamma" -> 0
     paramMap += "subsample" -> 0.8
     paramMap += "colsample_bytree" -> 0.8
