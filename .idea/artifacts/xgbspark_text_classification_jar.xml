@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="xgbspark-text-classification:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/xgbspark_text_classification_jar</output-path>
+    <root id="archive" name="xgbspark-text-classification.jar">
+      <element id="module-output" name="xgbspark-text-classification" />
+    </root>
+  </artifact>
+</component>

@@ -11,13 +11,14 @@ import org.ansj.splitWord.analysis.DicAnalysis
   * Created by YangChenguang on 2017/12/27.
   */
 object DataPreprocess {
-  def textCleaner(rawText: DataFrame): Dataset[String] = {
+  def textCleaner(sparkSession: SparkSession, rawText: DataFrame): Dataset[String] = {
     // 过滤文本中的时间、网址和邮箱
     val regex1 = new Regex("""[-—0-9a-z]+[:]+[0-9a-z]+[:]?""")
     val regex2 = new Regex("""[0-9]+年|[0-9]+月|[0-9]+[日]|[0-9]+[天]|[0-9]+[号]|[0-9]+[次]""")
     val regex3 = new Regex("""http[s]?://[a-z0-9./?=_-]+""")
     val regex4 = new Regex("""[0-9_a-z]+([-+.][0-9_a-z]+)*@[0-9_a-z]+([-.][0-9_a-z]+)*\.[0-9_a-z]+([-.][0-9_a-z]+)*""")
 
+    import sparkSession.implicits._
     rawText.map(x => x.toString).map(x => x.substring(1,x.length - 1).toLowerCase).map(x => regex1.replaceAllIn(x,""))
       .map(x => regex2.replaceAllIn(x,"")).map(x => regex3.replaceAllIn(x,"")).map(x => regex4.replaceAllIn(x,""))
   }
@@ -53,7 +54,8 @@ object DataPreprocess {
     val single = sparkSession.sparkContext.broadcast(singleWhiteList)
 
     // 读取文本数据，过滤后分词
-    textCleaner(rawText).map { x =>
+    import sparkSession.implicits._
+    textCleaner(sparkSession, rawText).map { x =>
       val parse = DicAnalysis.parse(x, dic.value).recognition(stop.value)
       // 抽取分词结果，不附带词性
       val words = for(i<-Range(0,parse.size())) yield parse.get(i).getName
