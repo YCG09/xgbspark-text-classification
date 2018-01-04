@@ -122,7 +122,7 @@ object XGBoostTrain {
     paramMap += "num_class" -> args(8).toInt
     paramMap += "objective" -> "multi:softprob"
     paramMap += "numEarlyStoppingRounds" -> 0
-    paramMap += "trainTestRatio" -> 0.98
+    paramMap += "trainTestRatio" -> 0.9
     paramMap += "booster" -> "dart"
     paramMap += "rate_drop" -> 0.1
     paramMap += "skip_drop" -> 0.5
