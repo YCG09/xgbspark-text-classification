@@ -34,7 +34,7 @@ object XGBoostInference {
     val prediction = xgbModelTrained.value.transform(dataPrepared)
 
     // 6、将预测结果写到HDFS
-    prediction.select("caseid", "text", "filteredWords", "predictedLabel", "probabilities").rdd.coalesce(1).saveAsTextFile(args(7))
+    prediction.select("text", "predictedLabel", "probabilities").rdd.coalesce(1).saveAsTextFile(args(7))
 
     sparkSession.stop()
   }

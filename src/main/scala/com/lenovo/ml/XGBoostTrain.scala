@@ -93,7 +93,7 @@ object XGBoostTrain {
 
     // 5、将label转化为数值
     val labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("labelIndex").fit(featuredData)
-    val dataPrepared = labelIndexer.transform(featuredData)
+    val dataPrepared = labelIndexer.transform(featuredData).select("text", "features", "label", "labelIndex")
 
     // 6、按比例划分训练数据和测试数据
     val testSize = args(7).toDouble
@@ -138,7 +138,7 @@ object XGBoostTrain {
     val prediction = xgbModelTrained.value.transform(testData)
 
     // 11、评估模型效果
-    prediction.select("caseid", "text", "filteredWords", "label", "predictedLabel", "probabilities").rdd.coalesce(1).saveAsTextFile(args(10))
+    prediction.select("text", "label", "predictedLabel", "probabilities").rdd.coalesce(1).saveAsTextFile(args(10))
     val accuracy = evaluator.evaluate(prediction)
     sparkSession.sparkContext.parallelize(List("Accuracy = " + accuracy)).coalesce(1).saveAsTextFile(args(11))
 
