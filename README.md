@@ -1,5 +1,3 @@
-XGBoost on Spark for Chinese Text Classification
-
 ## Features
 
 * Data Source: `Hive`
